@@ -25,6 +25,12 @@ var RomanToArabicMap = map[string]int{
 	"X":    10,
 }
 
+func ErrHandler(err error) {
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(42)
+	}
+}
 func IsArabic(str string) bool {
 	buffer, _ := strconv.Atoi(str)
 	if buffer <= 10 {
@@ -130,37 +136,30 @@ func TranslateArabicToRoman(arabicNum int) string {
 func main() {
 	for {
 		fmt.Print("Input: ")
-		input, err := UserInput()
-		if err != nil {
-			fmt.Println(err)
-			break
+
+		input, NotMathExpr := UserInput()
+		ErrHandler(NotMathExpr)
+
+		sign, NotCorrectSign := GetActionSign(input)
+		ErrHandler(NotCorrectSign)
+
+		firstOperand, secondOperand := input[0], input[2]
+
+		if IsRoman(firstOperand) && IsRoman(secondOperand) {
+			result, LessOne := RomanCalc(input, sign)
+			ErrHandler(LessOne)
+
+			fmt.Println("Output:", result)
+
+		} else if IsArabic(firstOperand) && IsArabic(secondOperand) {
+			result, NotNumberOrDiffSys := ArabicCalc(input, sign)
+			ErrHandler(NotNumberOrDiffSys)
+
+			fmt.Println("Output:", result)
+
 		} else {
-			sign, err := GetActionSign(input)
-			if err != nil {
-				fmt.Println(err)
-				break
-			} else {
-				if IsRoman(input[0]) && IsRoman(input[2]) {
-					result, err := RomanCalc(input, sign)
-					if err != nil {
-						fmt.Println(err)
-						break
-					} else {
-						fmt.Println("Output:", result)
-					}
-				} else if IsArabic(input[0]) && IsArabic(input[2]) {
-					result, err := ArabicCalc(input, sign)
-					if err != nil {
-						fmt.Println(err)
-						break
-					} else {
-						fmt.Println("Output:", result)
-					}
-				} else {
-					fmt.Println("Введеное число более 10")
-				}
-			}
+			fmt.Println("Введеное число больше 10")
 		}
 	}
-	fmt.Println("Калькулятор завершил работу")
+	fmt.Println("Калькузятор завершил работу")
 }
