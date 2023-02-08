@@ -33,7 +33,7 @@ func ErrHandler(err error) {
 }
 func IsArabic(str string) bool {
 	buffer, _ := strconv.Atoi(str)
-	if buffer <= 10 {
+	if buffer <= 10 || buffer >= 0 {
 		return true
 	} else {
 		return false
