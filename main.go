@@ -33,7 +33,7 @@ func ErrHandler(err error) {
 }
 func IsArabic(str string) bool {
 	buffer, _ := strconv.Atoi(str)
-	if buffer <= 10 || buffer >= 0 {
+	if buffer <= 10 && buffer >= 0 {
 		return true
 	} else {
 		return false
@@ -158,7 +158,7 @@ func main() {
 			fmt.Println("Output:", result)
 
 		} else {
-			fmt.Println("Введеное число больше 10")
+			fmt.Println("Число вне допустимого диапазона")
 		}
 	}
 	fmt.Println("Калькузятор завершил работу")
