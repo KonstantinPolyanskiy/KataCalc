@@ -62,7 +62,7 @@ func UserInput() ([]string, error) {
 	}
 }
 func GetActionSign(str []string) (string, error) {
-	switch string(str[1]) {
+	switch str[1] {
 	case "+":
 		return "+", nil
 	case "-":
@@ -110,13 +110,13 @@ func ArabicCalc(str []string, sign string) (int, error) {
 
 	switch sign {
 	case "+":
-		buffer = int(firstNumber + secondNumber)
+		buffer = firstNumber + secondNumber
 	case "-":
-		buffer = int(firstNumber - secondNumber)
+		buffer = firstNumber - secondNumber
 	case "*":
-		buffer = int(firstNumber * secondNumber)
+		buffer = firstNumber * secondNumber
 	case "/":
-		buffer = int(firstNumber / secondNumber)
+		buffer = firstNumber / secondNumber
 	default:
 		return -1, nil
 	}
@@ -161,5 +161,4 @@ func main() {
 			fmt.Println("Число вне допустимого диапазона")
 		}
 	}
-	fmt.Println("Калькузятор завершил работу")
 }
